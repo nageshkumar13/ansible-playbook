@@ -1,5 +1,7 @@
 ---
--host: all
- user: root
- connection: ssh
- gather_fact: yes
+- hosts: all
+  user: root
+  connection: ssh
+  gather_facts: yes
+  tasks:
+    # Add your tasks here
