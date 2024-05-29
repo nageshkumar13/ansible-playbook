@@ -2,4 +2,4 @@
 -host: all
  user: root
  connection: ssh
- gather_fact: yes
+ gather_facts: yes
