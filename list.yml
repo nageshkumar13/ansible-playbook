@@ -1,0 +1,8 @@
+---
+- hosts: all
+  tasks:
+    - name: Run ls and output "ls"
+      command: ls
+      register: out
+
+    - debug: var=out.stdout_lines
