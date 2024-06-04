@@ -1,0 +1,23 @@
+---
+- hosts: gpx
+  user: root
+  become: yes
+  connection: ssh
+
+  tasks:
+    - name: update Apache cache
+      apt:
+      update_cache: yes
+
+    - name: Install Apache 
+      apt: 
+      name: apache2
+      state: present 
+    - name: Start apache server 
+      service:
+      name: apache2 
+      state: started
+      
+        
+
+
