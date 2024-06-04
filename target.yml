@@ -1,6 +1,6 @@
 ---
 
-- hosts: myHosts
+- hosts: all
   user: root
   connection: ssh
   gather_facts: yes
