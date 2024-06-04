@@ -1,0 +1,10 @@
+---
+   hosts: myHosts 
+   user: root 
+   become: yes 
+   connection: ssh
+
+   tasks:
+            - name: install httpd
+              action: yum name=httpd state=installed
+        
