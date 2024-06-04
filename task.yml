@@ -1,9 +1,9 @@
 ---
-- hosts: myHosts 
+- hosts: gpx 
   user: root 
   become: yes 
   connection: ssh
 
   tasks:
             - name: install httpd
-              action: yum name=httpd state=absent
+              action: apt name=apache2 state=present
