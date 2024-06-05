@@ -10,4 +10,9 @@
         state: latest 
     - name: "Check wheather app and database are running."
         script: \ansible-os-patching\appcheck.sh  
+        args:
+          executionable: /bin/bash
+        ignore_errors: true
+        register: app_process_check
         
+          
