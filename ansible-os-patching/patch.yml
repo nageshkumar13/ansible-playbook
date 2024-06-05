@@ -14,5 +14,7 @@
         executable: /bin/bash
       ignore_errors: true
       register: app_process_check
-
+    - name: "Will check and start patching on linux servers"
+        fail: msg='{{ myHosts }} have running Application. Please stop application and then proceed with patch.'
+        when: app_process_check.stdout == "process is running"
 
