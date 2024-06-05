@@ -11,7 +11,7 @@
     - name: "Check wheather app and database are running."
       script: \ansible-os-patching\appcheck.sh  
       args:
-        executionable: creates
+        executionable: /bin/bash
       ignore_errors: true
       register: app_process_check
 
