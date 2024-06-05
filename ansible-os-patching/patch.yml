@@ -45,3 +45,5 @@
       delay: 10
     - name: check the client uptime
       shell: uptime
+      register: machine_uptime
+    - debug: var=machine_uptime.stdout
