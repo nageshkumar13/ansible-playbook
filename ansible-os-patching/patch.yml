@@ -1,7 +1,11 @@
 ---
-- name: install httpd
-   yum:
-    name: httpd
-    state: latest 
-    delegate_to: myHosts[1]
-
+- hosts: myHosts 
+  user: root 
+  become: yes 
+  connection: ssh
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        state: latest 
+        
