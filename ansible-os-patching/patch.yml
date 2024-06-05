@@ -26,5 +26,11 @@
       shell: KERNEL_NEW=$(rpm -q --last kernel |head -1 | awk '{print $1}'|sed 's/kernel-//'); KERNEL_NOW=$(uname -r); if [[ $KERNEL_NEW != $KERNEL_NOW ]]; then echo "reboot needed"; else echo "reboot not needed"; fi
       ignore_errors: true
       register: reboot_status  
-
-
+    - name: "This play is to restart the system using above status check"
+      command: shutdown -r +1 "Rebooting System After Patching"
+      async: 0
+      poll: 0
+      when: reboot_status.stdout == "reboot needed"
+      register: reboot_started
+      ignore_errors: true
+    
