@@ -39,7 +39,9 @@
       pause: minutes=1  
     - name: check the system status
       local_action: shell ansible -u ansible -m ping {{ ansible_hostname }}
-      register: resultThe complete playbook, including all tasks, is shown above.
+      register: result
       until: result.rc == 0
       retries: 30
       delay: 10
+    - name: check the client uptime
+      shell: uptime
