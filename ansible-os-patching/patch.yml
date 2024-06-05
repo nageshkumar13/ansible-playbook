@@ -9,7 +9,7 @@
         name: httpd
         state: latest 
     - name: "Check wheather app and database are running."
-      script: /ansible-os-patching/appcheck.sh  
+      script: appcheck.sh  
       args:
         executable: /bin/bash
       ignore_errors: true
