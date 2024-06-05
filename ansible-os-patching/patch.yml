@@ -1,0 +1,8 @@
+---
+- name: install httpd
+  yum:
+   name: httpd
+   state: latest 
+   delegate_to: myHosts[1]
+
+  
