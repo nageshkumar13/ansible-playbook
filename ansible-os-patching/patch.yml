@@ -21,7 +21,7 @@
       when: app_process_check.stdout == "Process is running."
     - name: "Applying patches to the server"
       yum: name=kernel state=latest
-      when: app_process_check.stdout == "Process is not running." and ansible_distribution == "CentOS" or ansible_distribution == "RedHat"
+      when: app_process_check.stdout == "Process is not running." and ansible_distribution == "Amazon" or ansible_distribution == "RedHat"
       register: patch_update
     - name: "Check if reboot required"
       shell: KERNEL_NEW=$(rpm -q --last kernel |head -1 | awk '{print $1}'|sed 's/kernel-//'); KERNEL_NOW=$(uname -r); if [[ $KERNEL_NEW != $KERNEL_NOW ]]; then echo "reboot needed"; else echo "reboot not needed"; fi
