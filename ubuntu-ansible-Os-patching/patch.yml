@@ -1,5 +1,5 @@
 ---
-- hosts: myHosts 
+- hosts: gpx 
   user: root 
   become: yes 
   connection: ssh
