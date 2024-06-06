@@ -1,0 +1,78 @@
+---
+- hosts: myHosts 
+  user: root 
+  become: yes 
+  connection: ssh
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install apache2
+      apt:
+        name: apache2
+        state: latest 
+
+    - name: Check whether app and database are running
+      script: appcheck.sh  
+      args:
+        executable: /bin/bash
+      ignore_errors: true
+      register: app_process_check
+
+    - debug: var=app_process_check.stdout
+
+    - name: Check and start patching on Linux servers
+      fail:
+        msg: "{{ ansible_hostname }} has a running application. Please stop the application and then proceed with the patch."
+      when: app_process_check.stdout.strip() == "Process is running."
+
+    - name: Apply patches to the server
+      apt: 
+        name: linux-generic 
+        state: latest
+      when: 
+        - app_process_check.stdout.strip() == "Process is not running."
+        - ansible_distribution == "Ubuntu"
+      register: patch_update
+
+    - name: Check if reboot required
+      shell: |
+        KERNEL_NEW=$(dpkg -l | grep linux-image | awk '{print $3}' | sort -V | tail -1)
+        KERNEL_NOW=$(uname -r)
+        if [[ $KERNEL_NEW != $KERNEL_NOW ]]; then
+          echo "reboot needed"
+        else
+          echo "reboot not needed"
+        fi
+      ignore_errors: true
+      register: reboot_status
+
+    - debug: var=reboot_status.stdout  
+
+    - name: Restart the system if reboot is needed
+      command: shutdown -r +1 "Rebooting System After Patching"
+      async: 0
+      poll: 0
+      when: reboot_status.stdout.strip() == "reboot needed"
+      register: reboot_started
+      ignore_errors: true
+
+    - name: Wait for 1 minute for the system to come up
+      pause: minutes=1  
+
+    - name: Check the system status
+      local_action: 
+        module: shell 
+        args: 
+          cmd: ansible -u ansible -m ping {{ ansible_hostname }}
+      register: result
+      until: result.rc == 0
+      retries: 30
+      delay: 10
+
+    - name: Check the client uptime
+      shell: uptime
+      register: machine_uptime
+
+    - debug: var=machine_uptime.stdout
