@@ -1,0 +1,7 @@
+---
+- hosts: gpx 
+  user: root 
+  become: yes 
+  connection: ssh
+  roles: 
+        - my-roles
