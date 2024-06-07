@@ -1,6 +1,6 @@
 ---
 - name: Ensure web servers are configured
-  hosts: webservers
+  hosts: gpx
   vars:
     packages_to_install:
       - nginx
