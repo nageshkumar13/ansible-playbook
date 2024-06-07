@@ -1,0 +1,23 @@
+---
+- name: Ensure web servers are configured
+  hosts: webservers
+  vars:
+    packages_to_install:
+      - nginx
+      - git
+      - curl
+      - vim
+  tasks:
+    - name: Install multiple packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ packages_to_install }}"
+      notify:
+        - Restart nginx
+
+  handlers:
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
