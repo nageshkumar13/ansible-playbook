@@ -22,7 +22,7 @@
 
     - debug: var=app_process_check.stdout
 
-    - name: Stop running app 
+    - name: Stop running app apche2
       apt: 
         name: apache2
         state: stopped
