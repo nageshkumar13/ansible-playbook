@@ -1,0 +1,21 @@
+---
+- hosts: gpx 
+  user: root 
+  become: yes 
+  connection: ssh
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Un-Install apache2
+      apt:
+        name: apache2
+        state: absent
+        notify: install apache2
+
+  handlers:
+          - name: install apache2
+            apt:
+              name: apache2
+              state: latest        
