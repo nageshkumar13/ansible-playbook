@@ -1,7 +1,7 @@
 - name: install apache on debian
   command: apt-get -y install apache2
-  when: ansible-os-family == "Ubuntu"
+  when: ansible_distribution == "Ubuntu"
 
 - name: install apache for redhat 
   command: yum -y install httpd  
-  when: ansible-os-family == "Amazon"
+  when: ansible_distribution == "Amazon"
