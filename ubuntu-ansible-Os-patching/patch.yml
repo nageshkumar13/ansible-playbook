@@ -35,7 +35,7 @@
     - name: Stop the application
       service:
         name: apache2
-        state: stopped
+        state: absent
       when: app_process_check.stdout.strip() == "Process is running."  
 
     - name: Apply patches to the server
