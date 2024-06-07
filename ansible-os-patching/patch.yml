@@ -4,5 +4,5 @@
   become: yes 
   connection: ssh
   roles:
-        -os-patch
-        
+        - os-patch
+
