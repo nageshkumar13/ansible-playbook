@@ -25,14 +25,13 @@
     - name: Stop the application
       service:
         name: apache2
-        state: absent
+        state: stopped
       when: app_process_check.stdout.strip() == "Process is running."  
 
     - name: Check and start patching on Linux servers
       fail:
         msg: "{{ ansible_hostname }} has a running application. Please stop the application and then proceed with the patch."
       when: app_process_check.stdout.strip() == "Process is running."
-
 
     - name: Apply patches to the server
       apt: 
