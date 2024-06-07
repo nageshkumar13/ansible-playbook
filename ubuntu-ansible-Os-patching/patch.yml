@@ -22,6 +22,11 @@
 
     - debug: var=app_process_check.stdout
 
+    - name: Stop running app 
+        apt: 
+          name: apache2
+          state: stopped
+
     - name: Check and start patching on Linux servers
       fail:
         msg: "{{ ansible_hostname }} has a running application. Please stop the application and then proceed with the patch."
