@@ -23,9 +23,9 @@
     - debug: var=app_process_check.stdout
 
     - name: Stop running app 
-        apt: 
-          name: apache2
-          state: stopped
+      apt: 
+        name: apache2
+        state: stopped
 
     - name: Check and start patching on Linux servers
       fail:
