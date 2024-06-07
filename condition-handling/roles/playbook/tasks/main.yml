@@ -2,6 +2,6 @@
   command: apt-get -y install apache2
   when: ansible-os-family == "Debian"
 
--name: install apache for redhat 
- command: yum -y install httpd  
- when: ansible-os-family == "RedHat"
+- name: install apache for redhat 
+  command: yum -y install httpd  
+  when: ansible-os-family == "RedHat"
