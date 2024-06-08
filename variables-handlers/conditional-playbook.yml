@@ -6,6 +6,7 @@
     - name: Gather disk usage information
       command: df -h
       register: disk_usage
+    - debug: disk_usage.stdout  
 
     - name: Gather memory usage information
       command: free -m
