@@ -1,9 +1,9 @@
 --- #Conditional playbook 
--hosts: all
- user: root 
- become: yes
- connection: ssh 
- tasks:
+- hosts: all
+  user: root 
+  become: yes
+  connection: ssh 
+  tasks:
     - name: install apache2 for ubuntu
       command: apt-get -y install apache2
       when: ansible_distribution =="Ubuntu"
