@@ -1,0 +1,91 @@
+- name: Gather system information and log based on distribution
+  hosts: all
+  connection: ssh
+  become: yes
+  tasks:
+    - name: Gather disk usage information
+      command: df -h
+      register: disk_usage
+
+    - name: Gather memory usage information
+      command: free -m
+      register: memory_usage
+
+    - name: Gather system uptime
+      command: uptime
+      register: system_uptime
+
+    - name: Create log file for Ubuntu
+      command: touch /var/log/ubuntu_system_info.log
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Log disk usage to file on Ubuntu
+      lineinfile:
+        path: /var/log/ubuntu_system_info.log
+        create: yes
+        line: "{{ disk_usage.stdout }}"
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Log memory usage to file on Ubuntu
+      lineinfile:
+        path: /var/log/ubuntu_system_info.log
+        create: yes
+        line: "{{ memory_usage.stdout }}"
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Log system uptime to file on Ubuntu
+      lineinfile:
+        path: /var/log/ubuntu_system_info.log
+        create: yes
+        line: "{{ system_uptime.stdout }}"
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Create log file for Amazon Linux
+      command: touch /var/log/amazon_system_info.log
+      when: ansible_distribution == "Amazon"
+
+    - name: Log disk usage to file on Amazon Linux
+      lineinfile:
+        path: /var/log/amazon_system_info.log
+        create: yes
+        line: "{{ disk_usage.stdout }}"
+      when: ansible_distribution == "Amazon"
+
+    - name: Log memory usage to file on Amazon Linux
+      lineinfile:
+        path: /var/log/amazon_system_info.log
+        create: yes
+        line: "{{ memory_usage.stdout }}"
+      when: ansible_distribution == "Amazon"
+
+    - name: Log system uptime to file on Amazon Linux
+      lineinfile:
+        path: /var/log/amazon_system_info.log
+        create: yes
+        line: "{{ system_uptime.stdout }}"
+      when: ansible_distribution == "Amazon"
+
+    - name: Create log file for CentOS
+      command: touch /var/log/centos_system_info.log
+      when: ansible_distribution == "CentOS"
+
+    - name: Log disk usage to file on CentOS
+      lineinfile:
+        path: /var/log/centos_system_info.log
+        create: yes
+        line: "{{ disk_usage.stdout }}"
+      when: ansible_distribution == "CentOS"
+
+    - name: Log memory usage to file on CentOS
+      lineinfile:
+        path: /var/log/centos_system_info.log
+        create: yes
+        line: "{{ memory_usage.stdout }}"
+      when: ansible_distribution == "CentOS"
+
+    - name: Log system uptime to file on CentOS
+      lineinfile:
+        path: /var/log/centos_system_info.log
+        create: yes
+        line: "{{ system_uptime.stdout }}"
+      when: ansible_distribution == "CentOS"
